@@ -26,7 +26,7 @@ public class OJDBC {
           
         // 8.a -----------------------------------------------------------------
 //        IRegionDAO irdao = new RegionDAO(connection.getConnection());
-//        Region region = new Region(31, "My Region");
+//        Region region = new Region(32, "My Regional");
 //        System.out.println(irdao.insert(region));
 
         // 8.b
@@ -35,5 +35,12 @@ public class OJDBC {
             System.out.println(region.getId());
             System.out.println(region.getName());
         }
+        
+//        IRegionDAO irdao = new RegionDAO(connection.getConnection());
+//        Region region = new Region(33, "My Region");
+//        System.out.println(irdao.update(32, region));
+
+//          IRegionDAO irdao = new RegionDAO(connection.getConnection());
+//          irdao.delete(31);
     }
 }

@@ -21,7 +21,13 @@ public interface IRegionDAO {
     public boolean insert(Region r);
     
     // Method yg digunakan untuk mengganti nilai data di dalam tabel Regions
-    public boolean update(Region r);
+    /**
+     * 
+     * @param id ini adalah id yang lama
+     * @param r ini adalah object region
+     * @return 
+     */
+    public boolean update(int id, Region r);
     
     // Method yg digunakan yntyk menghapus satu baris data sesuai id masukan
     public boolean delete(int id);

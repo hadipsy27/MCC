@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Region;
 
-/**cd ..
- *
- * @author mystogan
- */
 public class RegionDAO implements IRegionDAO{
     private Connection connection;
     
@@ -27,10 +23,10 @@ public class RegionDAO implements IRegionDAO{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {                
-                Region r = new Region(resultSet.getInt(1), resultSet.getString(2));
-                r.setId(resultSet.getInt(1));
-                r.setName(resultSet.getString(2));
-                listRegion.add(r);
+//                Region r = new Region(resultSet.getInt(1), resultSet.getString(2));
+//                r.setId(resultSet.getInt(1));
+//                r.setName(resultSet.getString(2));
+                listRegion.add(new Region(resultSet.getInt(1), resultSet.getString(2)));
             }
             
         } catch (Exception e) {
@@ -65,13 +61,47 @@ public class RegionDAO implements IRegionDAO{
         return result;
     }
 
+    /**
+     * Java doc
+     * @param id ini adalah id yang lama
+     * @param r
+     * @return 
+     */
     @Override
-    public boolean update(Region r) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(int id, Region r) {
+        boolean result = false;
+        String query = "UPDATE HR.REGIONS SET region_id=?, region_name=? WHERE region_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, r.getId());
+            preparedStatement.setString(2, r.getName());
+            preparedStatement.setInt(3, id);
+            preparedStatement.executeQuery();
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        String query = "DELETE FROM HR.REGIONS WHERE region_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            result = true;
+            if(result){
+                System.out.println("Data berhasil di hapus");
+            } else {
+                System.out.println("Data tidak ada");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
