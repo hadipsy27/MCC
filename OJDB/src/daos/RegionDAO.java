@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Region;
 
-/**
+/**cd ..
  *
  * @author mystogan
  */
@@ -32,6 +32,7 @@ public class RegionDAO implements IRegionDAO{
                 r.setName(resultSet.getString(2));
                 listRegion.add(r);
             }
+            
         } catch (Exception e) {
             e.getStackTrace();
         }
