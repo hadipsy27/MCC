@@ -38,26 +38,22 @@ public class OJDBC {
 //        Region region = new Region(35, "Regional");
 //        System.out.println(idao.insert(region));
 
-        // 8.b
-//        InterfaceDAO<Region, Integer> idao = new RegionDAO(connection.getConnection());
+// 8.b -------------------------------------------------------------------------
 //        for(Region region : idao.getAll()){
 //            System.out.println(region.getId());
 //            System.out.println(region.getName());
 //        }
         
-        // delete data ---------------------------------------------------------
-//        InterfaceDAO<Region, Integer> idao = new RegionDAO(connection.getConnection());
+// delete data -----------------------------------------------------------------
 //        idao.delete(35);
 
-          // getAll data Regions
-//        InterfaceDAO<Region, Integer> idao = new RegionDAO(connection.getConnection());
+// getAll data Regions ---------------------------------------------------------
 //        for(Region region : idao.getAll()){
 //            System.out.println(region.getId());
 //            System.out.println(region.getName());
 //        }
         
 // update date table region
-//        InterfaceDAO<Region, Integer> idao = new RegionDAO(connection.getConnection());
 //        Region region = new Region(35, "Regionnal");
 //        System.out.println(idao.update(32, region));
         
