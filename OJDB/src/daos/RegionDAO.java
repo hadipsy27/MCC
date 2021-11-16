@@ -23,10 +23,10 @@ public class RegionDAO implements IRegionDAO{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {                
-//                Region r = new Region(resultSet.getInt(1), resultSet.getString(2));
-//                r.setId(resultSet.getInt(1));
-//                r.setName(resultSet.getString(2));
-                listRegion.add(new Region(resultSet.getInt(1), resultSet.getString(2)));
+                listRegion.add(new Region(
+                        resultSet.getInt(1), 
+                        resultSet.getString(2)
+                ));
             }
             
         } catch (Exception e) {
@@ -36,23 +36,49 @@ public class RegionDAO implements IRegionDAO{
     }
 
     @Override
-    public List<Region> getById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Region getById(int id) {
+        Region region = new Region();
+        String query = "SELECT * FROM HR.REGIONS WHERE region_id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                region = new Region(resultSet.getInt(1), resultSet.getString(2));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return region;
     }
 
     @Override
     public List<Region> search(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Region> listRegion = new ArrayList<>();
+        String query = "SELECT * FROM HR.REGIONS WHERE region_id LIKE ? OR region_name LIKE ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "%" + key + "%");
+            preparedStatement.setString(2, "%" + key + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {                
+                listRegion.add(new Region(resultSet.getInt(1), resultSet.getString(2)));
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listRegion;
     }
 
     @Override
-    public boolean insert(Region r) {
+    public boolean insert(Region region) {
         boolean result  = false;
         String query = "INSERT INTO HR.REGIONS(region_id, region_name) VALUES(?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, r.getId());
-            preparedStatement.setString(2, r.getName());
+            preparedStatement.setInt(1, region.getId());
+            preparedStatement.setString(2, region.getName());
             preparedStatement.executeQuery();
             result = true;
         } catch (Exception e) {
@@ -61,20 +87,15 @@ public class RegionDAO implements IRegionDAO{
         return result;
     }
 
-    /**
-     * Java doc
-     * @param id ini adalah id yang lama
-     * @param r
-     * @return 
-     */
+   
     @Override
-    public boolean update(int id, Region r) {
+    public boolean update(int id, Region region) {
         boolean result = false;
         String query = "UPDATE HR.REGIONS SET region_id=?, region_name=? WHERE region_id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, r.getId());
-            preparedStatement.setString(2, r.getName());
+            preparedStatement.setInt(1, region.getId());
+            preparedStatement.setString(2, region.getName());
             preparedStatement.setInt(3, id);
             preparedStatement.executeQuery();
             result = true;
@@ -104,4 +125,5 @@ public class RegionDAO implements IRegionDAO{
         }
         return result;
     }
+    
 }
