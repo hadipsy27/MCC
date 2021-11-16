@@ -2,6 +2,7 @@
 package daos;
 
 import idaos.ICountryDAO;
+import idaos.InterfaceDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import models.Country;
  *
  * @author mystogan
  */
-public class CountryDAO implements ICountryDAO{
+public class CountryDAO implements InterfaceDAO<Country, String>{
     private Connection connection;
     
     public CountryDAO(Connection connection){
